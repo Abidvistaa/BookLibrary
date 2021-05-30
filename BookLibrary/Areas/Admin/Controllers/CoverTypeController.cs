@@ -9,11 +9,11 @@ using System.Threading.Tasks;
 namespace BookLibrary.Areas.Admin.Controllers
 {
     [Area("Admin")]
-    public class CategoryController : Controller
+    public class CoverTypeController : Controller
     {
         private readonly IUnitofWork _unitofWork;
 
-        public CategoryController(IUnitofWork unitofWork)
+        public CoverTypeController(IUnitofWork unitofWork)
         {
             _unitofWork = unitofWork;
         }
@@ -24,64 +24,63 @@ namespace BookLibrary.Areas.Admin.Controllers
         }
         public IActionResult Upsert(int? id)
         {
-            Category category = new Category();
+            CoverType coverType = new CoverType();
             if (id == null)
             {
                 //This is for Create
-                return View(category);
+                return View(coverType);
             }
             //This is for Create
-            category = _unitofWork.Category.Get(id.GetValueOrDefault());
-            if (category == null)
+            coverType = _unitofWork.CoverType.Get(id.GetValueOrDefault());
+            if (coverType == null)
             {
                 return NotFound();
 
             }
-            return View(category);
-
+            return View(coverType);
 
         }
 
-
+        
         #region API Calls
 
 
         [HttpGet]
         public IActionResult GetAll()
         {
-            var allobj = _unitofWork.Category.GetAll();
+            var allobj = _unitofWork.CoverType.GetAll();
             return Json(new { data = allobj });
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Upsert(Category category)
+        public IActionResult Upsert(CoverType coverType)
         {
             if (ModelState.IsValid)
             {
-                if (category.Id == 0)
+                if (coverType.Id == 0)
                 {
-                    _unitofWork.Category.Add(category);
+                    _unitofWork.CoverType.Add(coverType);
                 }
                 else
                 {
-                    _unitofWork.Category.Update(category);
+                    _unitofWork.CoverType.Update(coverType);
                 }
                 _unitofWork.Save();
                 return RedirectToAction(nameof(Index));
             }
-            return View(category);
+            return View(coverType);
         }
 
         [HttpDelete]
         public IActionResult Delete(int id)
         {
-            var objFromDB = _unitofWork.Category.Get(id);
+            var objFromDB = _unitofWork.CoverType.Get(id);
             if (objFromDB == null)
             {
                 return Json(new {success=false,message="Error While Deleting" });
             }
-            _unitofWork.Category.Remove(objFromDB);
+            _unitofWork.CoverType.Remove(objFromDB);
             _unitofWork.Save();
             return Json(new { success = true, message = "Delete Success" });
         }
