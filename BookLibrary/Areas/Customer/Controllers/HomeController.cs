@@ -1,4 +1,5 @@
-﻿using BookLibrary.Models;
+﻿using BookLibrary.DataAccess.Repository.IRepository;
+using BookLibrary.Models;
 using BookLibrary.Models.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
@@ -14,15 +15,17 @@ namespace BookLibrary.Areas.Customers.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
-
-        public HomeController(ILogger<HomeController> logger)
+        private readonly IUnitofWork _unitofWork;
+        public HomeController(ILogger<HomeController> logger,IUnitofWork unitofWork)
         {
             _logger = logger;
+            _unitofWork = unitofWork;
         }
 
         public IActionResult Index()
         {
-            return View();
+            IEnumerable<Product> productList = _unitofWork.Product.GetAll(includeProperties: "Category,CoverType");
+            return View(productList);
         }
 
         public IActionResult Privacy()

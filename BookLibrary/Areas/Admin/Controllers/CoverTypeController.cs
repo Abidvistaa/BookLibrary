@@ -41,17 +41,6 @@ namespace BookLibrary.Areas.Admin.Controllers
 
         }
 
-        
-        #region API Calls
-
-
-        [HttpGet]
-        public IActionResult GetAll()
-        {
-            var allobj = _unitofWork.CoverType.GetAll();
-            return Json(new { data = allobj });
-        }
-
         [HttpPost]
         [ValidateAntiForgeryToken]
         public IActionResult Upsert(CoverType coverType)
@@ -71,6 +60,18 @@ namespace BookLibrary.Areas.Admin.Controllers
             }
             return View(coverType);
         }
+
+        #region API Calls
+
+
+        [HttpGet]
+        public IActionResult GetAll()
+        {
+            var allobj = _unitofWork.CoverType.GetAll();
+            return Json(new { data = allobj });
+        }
+
+       
 
         [HttpDelete]
         public IActionResult Delete(int id)
