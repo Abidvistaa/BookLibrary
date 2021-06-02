@@ -5,16 +5,15 @@
 }
 
 <form method="post" enctype="multipart/form-data">
-    <div class="row p-3 border">
+    <div class="row p-3 border" >
         <div asp-validation-summary="ModelOnly" class="text-danger"></div>
         @if (Model.Product.Id != 0)
         {
             title = "Edit Prodcut";
             <input type="hidden" asp-for="Product.Id" />
         }
-        <div class="col-12 border-bottom">
-            <h2 class="text-primary">@title</h2>
-
+        <div class="col-12 border-bottom ">
+            <h2 class="text-primary" style="border-color:aqua">@title</h2>
         </div>
 
         <div class="col-8 pt-4">
