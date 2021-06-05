@@ -67,7 +67,6 @@ function loadDataTable() {
 }
 
 function LockUnlock(id) {
-    
             $.ajax({
                 type: "POST",
                 url: '/Admin/User/LockUnlock',
@@ -83,5 +82,4 @@ function LockUnlock(id) {
                     }
                 }
             });
-      
-} 
+}

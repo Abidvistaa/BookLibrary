@@ -9,10 +9,13 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using System.IO;
+using BookLibrary.Utility;
+using Microsoft.AspNetCore.Authorization;
 
 namespace BookLibrary.Areas.Admin.Controllers
 {
     [Area("Admin")]
+    [Authorize(Roles = SD.Role_Admin)]
     public class ProductController : Controller
     {
         private readonly IUnitofWork _unitofWork;
